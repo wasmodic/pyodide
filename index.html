@@ -65,6 +65,16 @@ ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG
     let pyodideReadyPromise = loadPyodide({
       indexURL: "https://cdn.jsdelivr.net/pyodide/v0.29.0/full/"
     });
+    
+    const packages = [] // Optionally add packages
+    if (packages.length > 0) {
+      await pyodide.loadPackage("micropip");
+      const micropip = pyodide.pyimport("micropip");
+    
+      await Promise.all(
+        packages.map(pkg => micropip.install(pkg))
+      );
+    }
 
     const statusEl = document.getElementById("status");
     const outputEl = document.getElementById("output");
