@@ -42,16 +42,24 @@ Look at the `<script>` block at the bottom of the HTML file. The flow is:
         from textwrap import wrap
         
         def gc_content(seq: str):
-          seq = seq.upper()
-          gc = sum(1 for b in seq if b in "GC")
-          at = sum(1 for b in seq if b in "AT")
-          others = len(seq) - gc - at
-          length = len(seq)
-          if length == 0:
-            return 0.0, gc, at, others, length
-          return gc / length * 100.0, gc, at, others, length
-        ...
-    ```  
+           ...
+        def reverse_complement(seq: str) -> str:
+           ...
+
+        def analyze_sequence(raw_seq: str) -> str:
+           ...
+       `);
+
+       statusEl.textContent = "Pyodide ready.";
+       analyzeButton.disabled = false;
+     } catch (err) {
+       console.error(err);
+       statusEl.textContent = "Error loading Pyodide. See console for details.";
+     }
+   }
+
+   setupPyodide();
+   ```  
 
 Here we:
 
