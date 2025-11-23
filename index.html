@@ -62,9 +62,7 @@ ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG
 
   <script type="text/javascript">
     // Load Pyodide once, globally
-    let pyodideReadyPromise = loadPyodide({
-      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.29.0/full/"
-    });
+    let pyodideReadyPromise = loadPyodide();
     
     const packages = [] // Optionally add packages
     if (packages.length > 0) {
