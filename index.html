@@ -64,16 +64,6 @@ ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG
     // Load Pyodide once, globally
     let pyodideReadyPromise = loadPyodide();
     
-    const packages = [] // Optionally add packages
-    if (packages.length > 0) {
-      await pyodide.loadPackage("micropip");
-      const micropip = pyodide.pyimport("micropip");
-    
-      await Promise.all(
-        packages.map(pkg => micropip.install(pkg))
-      );
-    }
-
     const statusEl = document.getElementById("status");
     const outputEl = document.getElementById("output");
     const analyzeButton = document.getElementById("analyzeButton");
@@ -81,7 +71,16 @@ ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG
     async function setupPyodide() {
       try {
         const pyodide = await pyodideReadyPromise;
-
+        const packages = [] // Optionally add packages
+        
+        if (packages.length > 0) {
+          await pyodide.loadPackage("micropip");
+          const micropip = pyodide.pyimport("micropip");
+        
+          await Promise.all(
+            packages.map(pkg => micropip.install(pkg))
+          );
+        }
         // Define analysis code once in the Python environment
         pyodide.runPython(`
 from textwrap import wrap
